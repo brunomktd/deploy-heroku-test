@@ -3,7 +3,7 @@ const app = express();
 const routes = express.Router();
 
 
-app.listen('3001', ()=> {
+app.listen(process.env.PORT || '3001', ()=> {
   console.log('servidor rodando na porta 3001')
 })
 
