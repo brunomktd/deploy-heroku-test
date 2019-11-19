@@ -28,12 +28,11 @@ class UserController {
     console.log(req.params.id)
     const {name, oldEmail, newEmail, confirmEmail} = req.body
 
-    const userExists = await User.findOne({_id: req.params.id})
+    const user = await User.findOne({_id: req.params.id})
 
-    if(!userExists){
+    if(!user){
       return res.status(404).json({error: 'User id not found'})  
     }
-
 
     if(oldEmail !== newEmail){
       if(newEmail !== confirmEmail){
@@ -41,8 +40,7 @@ class UserController {
       }
     }
 
-
-    const user = await User.update(
+    await User.update(
       {_id: req.params.id},
       {
         name,
@@ -50,7 +48,6 @@ class UserController {
       },
       {new: true}
     )
-   
 
     return res.json(user)
   }
